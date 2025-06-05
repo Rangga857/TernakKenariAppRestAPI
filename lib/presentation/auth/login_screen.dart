@@ -6,7 +6,9 @@ import 'package:canaryfarm/data/model/request/auth/login_request_model.dart';
 import 'package:canaryfarm/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:canaryfarm/presentation/auth/bloc/login/login_event.dart';
 import 'package:canaryfarm/presentation/auth/bloc/login/login_state.dart';
+import 'package:canaryfarm/presentation/auth/register_screen.dart';
 import 'package:canaryfarm/presentation/buyer/profile/buyer_profile_screen.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -137,6 +139,26 @@ class _LoginScreenState extends State<LoginScreen> {
                       label: state is LoginLoading ? 'Memuat...' : 'Masuk',
                     );
                   },
+                ),
+                const SpaceHeight(20),
+                Text.rich(
+                  TextSpan(
+                    text: 'Belum memiliki akun? Silahkan ',
+                    style: TextStyle(
+                      color: AppColors.grey,
+                      fontSize: MediaQuery.of(context).size.width * 0.03,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: 'Daftar disini!',
+                        style: TextStyle(color: AppColors.primary),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            context.push(const RegisterScreen());
+                          },
+                      ),
+                    ],
+                  ),
                 ),
               ]
             ),
