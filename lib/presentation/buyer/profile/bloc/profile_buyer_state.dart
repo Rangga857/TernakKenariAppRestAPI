@@ -18,3 +18,14 @@ final class ProfileBuyerError extends ProfileBuyerState {
   ProfileBuyerError({required this.message});
 }
 
+final class ProfileBuyerAdded extends ProfileBuyerState {
+  final BuyerProfileResponseModel profile;
+
+  ProfileBuyerAdded({required this.profile});
+}
+
+final class ProfileBuyerAddError extends ProfileBuyerState {
+  final String message;
+
+  ProfileBuyerAddError({required this.message});
+}
