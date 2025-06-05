@@ -5,6 +5,7 @@ import 'package:canaryfarm/presentation/auth/bloc/register/register_bloc.dart';
 import 'package:canaryfarm/presentation/auth/bloc/register/register_event.dart';
 import 'package:canaryfarm/presentation/auth/bloc/register/register_state.dart';
 import 'package:canaryfarm/presentation/auth/login_screen.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -153,6 +154,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
                 const SpaceHeight(20),
+                Text.rich(
+                  TextSpan(
+                    text: 'Sudah memiliki akun? Silahkan ',
+                    style: TextStyle(
+                      color: AppColors.grey,
+                      fontSize: MediaQuery.of(context).size.width * 0.03,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: 'Login disini!',
+                        style: TextStyle(color: AppColors.primary),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            context.pushAndRemoveUntil(
+                              const LoginScreen(),
+                              (route) => false,
+                            );
+                          },
+                      ),
+                    ],
+                  ),
+                ),
               ]
             ),
           ),
