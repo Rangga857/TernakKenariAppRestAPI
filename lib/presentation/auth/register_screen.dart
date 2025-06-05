@@ -1,6 +1,12 @@
 import 'package:canaryfarm/core/components/spaces.dart';
 import 'package:canaryfarm/core/core.dart';
+import 'package:canaryfarm/data/model/request/auth/request_model.dart';
+import 'package:canaryfarm/presentation/auth/bloc/register/register_bloc.dart';
+import 'package:canaryfarm/presentation/auth/bloc/register/register_event.dart';
+import 'package:canaryfarm/presentation/auth/bloc/register/register_state.dart';
+import 'package:canaryfarm/presentation/auth/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -102,6 +108,51 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ],
                 ),
+                const SpaceHeight(50),
+                BlocConsumer<RegisterBloc, RegisterState>(
+                  listener: (context, state) {
+                    if (state is RegisterSuccess) {
+                      context.pushAndRemoveUntil(
+                        const LoginScreen(),
+                        (route) => false,
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(state.message),
+                          backgroundColor: AppColors.primary,
+                        ),
+                      );
+                    } else if (state is RegisterFailure) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(state.error),
+                          backgroundColor: AppColors.red,
+                        ),
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return Button.filled(
+                      onPressed: state is RegisterLoading
+                          ? null
+                          : () {
+                              if (_key.currentState!.validate()) {
+                                final request = RegisterRequestModel(
+                                  username: namaController.text,
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                );
+                                context.read<RegisterBloc>().add(
+                                      RegisterRequested(requestModel: request),
+                                    );
+                              }
+                            },
+                      label:
+                          state is RegisterLoading ? 'Memuat...' : 'Daftar',
+                    );
+                  },
+                ),
+                const SpaceHeight(20),
               ]
             ),
           ),
