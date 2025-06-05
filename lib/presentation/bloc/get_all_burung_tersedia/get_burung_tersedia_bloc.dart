@@ -1,6 +1,6 @@
 import 'package:canaryfarm/data/repository/get_all_burung_tersedia_repository.dart';
-import 'package:canaryfarm/presentation/bloc/get_all_burung_tersedia/get_all_burung_tersedia_event.dart';
-import 'package:canaryfarm/presentation/bloc/get_all_burung_tersedia/get_all_burung_tersedia_state.dart';
+import 'package:canaryfarm/presentation/bloc/get_all_burung_tersedia/get_burung_tersedia_event.dart';
+import 'package:canaryfarm/presentation/bloc/get_all_burung_tersedia/get_burung_tersedia_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GetBurungTersediaBloc
