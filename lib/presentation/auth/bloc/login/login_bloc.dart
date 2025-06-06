@@ -1,4 +1,3 @@
-import 'package:canaryfarm/data/model/response/auth_response_model.dart';
 import 'package:canaryfarm/data/repository/auth_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'login_event.dart';
@@ -21,7 +20,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     result.fold(
       (l) => emit(LoginFailure(error: l)),
-      (r) => emit(LoginSuccess(responseModel: r as AuthResponseModel)),
+      (r) => emit(LoginSuccess(responseModel: r)),
     );
   }
 }
