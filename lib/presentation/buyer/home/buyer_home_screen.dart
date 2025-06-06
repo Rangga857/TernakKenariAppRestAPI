@@ -170,6 +170,73 @@ class _BuyerHomeScreenState extends State<BuyerHomeScreen> {
                                 },
                               );
                             },
+                            child: Card(
+                              elevation: 4,
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.vertical(
+                                      top: Radius.circular(12),
+                                    ),
+                                    child: (burung.image?.isNotEmpty ?? false)
+                                        ?  Image.network(
+                                            burung.image!,
+                                            height: 100,
+                                            width: double.infinity,
+                                            fit: BoxFit.fitHeight,
+                                          )
+                                        : Container(
+                                            height: 100,
+                                            width: double.infinity,
+                                            color: Colors.grey[300],
+                                            child: const Icon(Icons.image_not_supported),
+                                          ),
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            burung.noRing ?? 'No Ring Tidak Tersedia',
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            "Jenis: ${burung.jenisKenari}",
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          Text(
+                                            "Kelamin: ${burung.jenisKelamin}",
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          Text(
+                                            "Harga: Rp${burung.harga}",
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            "Status: ${burung.status}",
+                                            style: const TextStyle(
+                                              color: Colors.green,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           );
                         },
                       );
