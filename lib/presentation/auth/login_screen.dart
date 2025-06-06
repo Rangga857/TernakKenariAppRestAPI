@@ -109,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           SnackBar(content: Text(state.responseModel.message!)),
                         );
                         context.pushAndRemoveUntil(
-                          const BuyerProfileScreen(),
+                          BuyerProfileScreen(),
                           (route) => false,
                         );
                       } else {
