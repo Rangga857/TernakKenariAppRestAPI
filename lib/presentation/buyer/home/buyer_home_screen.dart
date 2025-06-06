@@ -119,7 +119,7 @@ class _BuyerHomeScreenState extends State<BuyerHomeScreen> {
                     }
 
                     if (state is GetBurungTersediaLoaded) {
-                      final List<Datum> burungList = state.burungTersedia.data ?? [];
+                      final List<DataBurungTersedia> burungList = state.burungTersedia.data ?? [];
                       if (burungList.isEmpty) {
                         return const Center(
                           child: Text("Tidak ada burung tersedia."),
