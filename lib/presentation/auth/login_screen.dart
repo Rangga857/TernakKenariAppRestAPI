@@ -1,6 +1,3 @@
-import 'package:canaryfarm/core/components/custom_text_field.dart';
-import 'package:canaryfarm/core/components/spaces.dart';
-import 'package:canaryfarm/core/constants/colors.dart';
 import 'package:canaryfarm/core/core.dart';
 import 'package:canaryfarm/data/model/request/auth/login_request_model.dart';
 import 'package:canaryfarm/presentation/auth/bloc/login/login_bloc.dart';
