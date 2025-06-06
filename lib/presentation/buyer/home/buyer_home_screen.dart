@@ -1,7 +1,9 @@
 import 'package:canaryfarm/core/components/spaces.dart';
+import 'package:canaryfarm/data/model/response/burung_semua_tersedia_model.dart';
 import 'package:canaryfarm/presentation/auth/login_screen.dart';
 import 'package:canaryfarm/presentation/bloc/get_all_burung_tersedia/get_burung_tersedia_bloc.dart';
 import 'package:canaryfarm/presentation/bloc/get_all_burung_tersedia/get_burung_tersedia_event.dart';
+import 'package:canaryfarm/presentation/bloc/get_all_burung_tersedia/get_burung_tersedia_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -101,6 +103,34 @@ class _BuyerHomeScreenState extends State<BuyerHomeScreen> {
                 },
               ),
             ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: BlocBuilder<GetBurungTersediaBloc, GetBurungTersediaState>(
+                  builder: (context, state) {
+                    if (state is GetBurungTersediaLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    if (state is GetBurungTersediaError) {
+                      return Center(
+                        child: Text("Terjadi kesalahan: ${state.message}"),
+                      );
+                    }
+
+                    if (state is GetBurungTersediaLoaded) {
+                      final List<Datum> burungList = state.burungTersedia.data ?? [];
+                      if (burungList.isEmpty) {
+                        return const Center(
+                          child: Text("Tidak ada burung tersedia."),
+                        );
+                      }
+                    }
+                    return const SizedBox(); // default kosong
+                  },
+                ),
+              ),
+            )
           ],
         )
       ),
