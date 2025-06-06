@@ -27,7 +27,8 @@ class ServiceHttpClient {
   }
   //GET
   Future<http.Response> get(String endpoint) async {
-    final token = await secureStorage.read(key : 'token');
+    final token = await secureStorage.read(key: 'authToken');
+    print("Token yang digunakan di GET: $token");
     final url = Uri.parse('$baseUrl$endpoint');
     
     try{
@@ -39,6 +40,8 @@ class ServiceHttpClient {
           'Accept': 'application/json',
         },
       );
+      print("Response status: ${response.statusCode}");
+      print("Response body: ${response.body}");
       return response;
     }catch (e) {
       throw Exception('Failed to get data: $e');
@@ -47,7 +50,7 @@ class ServiceHttpClient {
   // PUT
   // DELETE
   Future<http.Response> postWithToken(String url, dynamic body) async {
-  final token = await secureStorage.read(key: "token");
+  final token = await secureStorage.read(key: "authToken");
 
   return http.post(
     Uri.parse(baseUrl + url),
