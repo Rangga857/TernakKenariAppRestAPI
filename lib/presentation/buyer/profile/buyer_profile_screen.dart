@@ -35,12 +35,6 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
               SnackBar(content: Text("Profil berhasil ditambahkan")),
             );
           }
-          if (state is ProfileBuyerError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Error: ${state.message}")),
-            );
-            print("BlocListener Error: ${state.message}");
-          }
         },
         child: BlocBuilder<ProfileBuyerBloc, ProfileBuyerState>(
           builder: (context, state) {
@@ -48,24 +42,13 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
               return Center(child: CircularProgressIndicator());
             }
 
-           if (state is ProfileBuyerLoaded) {
-              final profile = state.profile.data;
-              print("Profile Loaded: ${profile?.toJson()}");
-
-              if (profile?.name != null && profile!.name!.isNotEmpty) {
-                return ProfileViewBuyer(profile: profile);
-              } else {
-                return ProfileBuyerInputForm();
-              }
-            }
-
-            if (state is ProfileBuyerError) {
-              return Center(
-                child: Text(
-                  "Error loading profile: ${state.message}",
-                  style: TextStyle(color: Colors.red),
-                ),
-              );
+            if (state is ProfileBuyerLoaded &&
+                state.profile.data?.name != null &&
+                state.profile.data!.name!.isNotEmpty) {
+                print("STATE LOADED: ${state.profile.data}");
+                print("NAMA: ${state.profile.data?.name}");
+              final profile = state.profile.data!;
+              return ProfileViewBuyer(profile: profile);
             }
           
             // Default ke form jika tidak ada data atau error
