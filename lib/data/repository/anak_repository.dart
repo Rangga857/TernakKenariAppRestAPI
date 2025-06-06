@@ -10,7 +10,7 @@ class AnakRepository {
 
   AnakRepository(this._serviceHttpClient);
 
-  Future<Either<String, GetAllAnakResponse>> addAnak(
+  Future<Either<String, GetAnakById>> addAnak(
     AnakRequestModel requestModel,
   ) async {
     try {
@@ -21,7 +21,7 @@ class AnakRepository {
 
       if (response.statusCode == 201) {
         final jsonResponse = json.decode(response.body);
-        final profileResponse = GetAllAnakResponse.fromJson(jsonResponse);
+        final profileResponse = GetAnakById.fromJson(jsonResponse);
         return Right(profileResponse);
       } else {
         final errorMessage = json.decode(response.body);
@@ -32,13 +32,13 @@ class AnakRepository {
     }
   }
 
-  Future<Either<String, GetAllAnakResponse>> getAllAnak() async {
+  Future<Either<String, GetAllAnakModelResponse>> getAllAnak() async {
     try {
       final response = await _serviceHttpClient.get("admin/anak");
 
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
-        final profileResponse = GetAllAnakResponse.fromJson(jsonResponse);
+        final profileResponse = GetAllAnakModelResponse.fromJson(jsonResponse);
         return Right(profileResponse);
       } else {
         final errorMessage = json.decode(response.body);
