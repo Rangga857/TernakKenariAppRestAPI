@@ -1,7 +1,7 @@
 import 'package:canaryfarm/presentation/buyer/profile/bloc/profile_buyer_bloc.dart';
 import 'package:canaryfarm/presentation/buyer/profile/bloc/profile_buyer_event.dart';
 import 'package:canaryfarm/presentation/buyer/profile/bloc/profile_buyer_state.dart';
-import 'package:canaryfarm/presentation/buyer/profile/widget/profile_buyer_form.dart';
+import 'package:canaryfarm/presentation/buyer/profile/widget/profile_buyer_input_form.dart';
 import 'package:canaryfarm/presentation/buyer/profile/widget/profile_view_buyer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,7 +49,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
             }
 
             // Default ke form jika tidak ada data atau error
-            return ProfileBuyerForm();
+            return ProfileBuyerInputForm();
           },
         ),
       ),
