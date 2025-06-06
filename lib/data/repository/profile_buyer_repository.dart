@@ -19,6 +19,9 @@ class ProfileBuyerRepository {
         requestModel.toJson(),
       );
 
+      print("Status Code: ${response.statusCode}");
+      print("Response Body: ${response.body}");
+
       if (response.statusCode == 201) {
         final jsonResponse = json.decode(response.body);
         final profileResponse = BuyerProfileResponseModel.fromJson(
