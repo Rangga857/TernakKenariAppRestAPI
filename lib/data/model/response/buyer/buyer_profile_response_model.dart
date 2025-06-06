@@ -1,65 +1,91 @@
 import 'dart:convert';
 
 class BuyerProfileResponseModel {
-    final String? message;
-    final int? statusCode;
-    final Data? data;
+  String message;
+  int statusCode;
+  Data data;
 
-    BuyerProfileResponseModel({
-        this.message,
-        this.statusCode,
-        this.data,
-    });
+  BuyerProfileResponseModel({
+    required this.message,
+    required this.statusCode,
+    required this.data,
+  });
 
-    factory BuyerProfileResponseModel.fromJson(String str) => BuyerProfileResponseModel.fromMap(json.decode(str));
+  BuyerProfileResponseModel copyWith({
+    String? message,
+    int? statusCode,
+    Data? data,
+  }) => BuyerProfileResponseModel(
+    message: message ?? this.message,
+    statusCode: statusCode ?? this.statusCode,
+    data: data ?? this.data,
+  );
 
-    String toJson() => json.encode(toMap());
+  factory BuyerProfileResponseModel.fromRawJson(String str) =>
+      BuyerProfileResponseModel.fromJson(json.decode(str));
 
-    factory BuyerProfileResponseModel.fromMap(Map<String, dynamic> json) => BuyerProfileResponseModel(
+  String toRawJson() => json.encode(toJson());
+
+  factory BuyerProfileResponseModel.fromJson(Map<String, dynamic> json) =>
+      BuyerProfileResponseModel(
         message: json["message"],
         statusCode: json["status_code"],
-        data: json["data"] == null ? null : Data.fromMap(json["data"]),
-    );
+        data: Data.fromJson(json["data"]),
+      );
 
-    Map<String, dynamic> toMap() => {
-        "message": message,
-        "status_code": statusCode,
-        "data": data?.toMap(),
-    };
+  Map<String, dynamic> toJson() => {
+    "message": message,
+    "status_code": statusCode,
+    "data": data.toJson(),
+  };
 }
 
 class Data {
-    final int? id;
-    final String? name;
-    final String? address;
-    final String? phone;
-    final String? photo;
+  int id;
+  String name;
+  String address;
+  String phone;
+  String? photo;
 
-    Data({
-        this.id,
-        this.name,
-        this.address,
-        this.phone,
-        this.photo,
-    });
+  Data({
+    required this.id,
+    required this.name,
+    required this.address,
+    required this.phone,
+    required this.photo,
+  });
 
-    factory Data.fromJson(String str) => Data.fromMap(json.decode(str));
+  Data copyWith({
+    int? id,
+    String? name,
+    String? address,
+    String? phone,
+    String? photo,
+  }) => Data(
+    id: id ?? this.id,
+    name: name ?? this.name,
+    address: address ?? this.address,
+    phone: phone ?? this.phone,
+    photo: photo ?? this.photo,
+  );
 
-    String toJson() => json.encode(toMap());
+  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
 
-    factory Data.fromMap(Map<String, dynamic> json) => Data(
-        id: json["id"],
-        name: json["name"],
-        address: json["address"],
-        phone: json["phone"],
-        photo: json["photo"],
-    );
+  String toRawJson() => json.encode(toJson());
 
-    Map<String, dynamic> toMap() => {
-        "id": id,
-        "name": name,
-        "address": address,
-        "phone": phone,
-        "photo": photo,
-    };
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+    id: json["id"],
+    name: json["name"],
+    address: json["address"],
+    phone: json["phone"],
+    photo: json["photo"] ?? "", // Handle null case for photo
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+    "address": address,
+    "phone": phone,
+    "photo": photo,
+  };
 }
