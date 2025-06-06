@@ -4,7 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 class ServiceHttpClient {
-  final String baseUrl = 'http://10.0.0.2:8000/api/';
+  final String baseUrl = 'http://10.0.2.2:8000/api/';
   final secureStorage = FlutterSecureStorage();
 
   //POST
@@ -31,7 +31,7 @@ class ServiceHttpClient {
     final url = Uri.parse('$baseUrl$endpoint');
     
     try{
-      final response = await http.post(
+      final response = await http.get(
         url,
         headers: {
           if (token != null)'Authorization': 'Bearer $token',
