@@ -27,12 +27,19 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
       appBar: AppBar(title: Text("Profil Pembeli")),
       body: BlocListener<ProfileBuyerBloc, ProfileBuyerState>(
         listener: (context, state) {
+          print("Current state: $state");
           if (state is ProfileBuyerAdded) {
             // Refresh profil setelah tambah
             context.read<ProfileBuyerBloc>().add(GetProfileBuyerEvent());
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text("Profil berhasil ditambahkan")),
             );
+          }
+          if (state is ProfileBuyerError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("Error: ${state.message}")),
+            );
+            print("BlocListener Error: ${state.message}");
           }
         },
         child: BlocBuilder<ProfileBuyerBloc, ProfileBuyerState>(
@@ -41,13 +48,26 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
               return Center(child: CircularProgressIndicator());
             }
 
-            if (state is ProfileBuyerLoaded &&
-                state.profile.data?.name != null &&
-                state.profile.data!.name!.isNotEmpty) {
-              final profile = state.profile.data!;
-              return ProfileViewBuyer(profile: profile);
+           if (state is ProfileBuyerLoaded) {
+              final profile = state.profile.data;
+              print("Profile Loaded: ${profile?.toJson()}");
+
+              if (profile?.name != null && profile!.name!.isNotEmpty) {
+                return ProfileViewBuyer(profile: profile);
+              } else {
+                return ProfileBuyerInputForm();
+              }
             }
 
+            if (state is ProfileBuyerError) {
+              return Center(
+                child: Text(
+                  "Error loading profile: ${state.message}",
+                  style: TextStyle(color: Colors.red),
+                ),
+              );
+            }
+          
             // Default ke form jika tidak ada data atau error
             return ProfileBuyerInputForm();
           },
