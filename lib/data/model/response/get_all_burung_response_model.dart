@@ -1,111 +1,132 @@
 import 'dart:convert';
 
 class GetAllBurungResponseModel {
-    final String? message;
-    final int? statusCode;
-    final List<Datum>? data;
+  final String message;
+  final int statusCode;
+  final List<GetAllBurung> data;
 
-    GetAllBurungResponseModel({
-        this.message,
-        this.statusCode,
-        this.data,
-    });
+  GetAllBurungResponseModel({
+    required this.message,
+    required this.statusCode,
+    required this.data,
+  });
 
-    factory GetAllBurungResponseModel.fromJson(String str) => GetAllBurungResponseModel.fromMap(json.decode(str));
+  GetAllBurungResponseModel copyWith({
+    String? message,
+    int? statusCode,
+    List<GetAllBurung>? data,
+  }) => GetAllBurungResponseModel(
+    message: message ?? this.message,
+    statusCode: statusCode ?? this.statusCode,
+    data: data ?? this.data,
+  );
 
-    String toJson() => json.encode(toMap());
+  factory GetAllBurungResponseModel.fromJson(String str) =>
+      GetAllBurungResponseModel.fromMap(json.decode(str));
 
-    factory GetAllBurungResponseModel.fromMap(Map<String, dynamic> json) => GetAllBurungResponseModel(
+  String toJson() => json.encode(toMap());
+
+  factory GetAllBurungResponseModel.fromMap(Map<String, dynamic> json) =>
+      GetAllBurungResponseModel(
         message: json["message"],
         statusCode: json["status_code"],
-        data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromMap(x))),
-    );
+        data: List<GetAllBurung>.from(
+          json["data"].map((x) => GetAllBurung.fromMap(x)),
+        ),
+      );
 
-    Map<String, dynamic> toMap() => {
-        "message": message,
-        "status_code": statusCode,
-        "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toMap())),
-    };
+  Map<String, dynamic> toMap() => {
+    "message": message,
+    "status_code": statusCode,
+    "data": List<dynamic>.from(data.map((x) => x.toMap())),
+  };
 }
 
-class Datum {
-    final int? id;
-    final Tipe? tipe;
-    final String? noRing;
-    final JenisKelamin? jenisKelamin;
-    final DateTime? tanggalLahir;
-    final JenisKenari? jenisKenari;
+class GetAllBurung {
+  final int id;
+  final Tipe tipe;
+  final String noRing;
+  final JenisKelamin jenisKelamin;
+  final DateTime tanggalLahir;
+  final JenisKenari jenisKenari;
 
-    Datum({
-        this.id,
-        this.tipe,
-        this.noRing,
-        this.jenisKelamin,
-        this.tanggalLahir,
-        this.jenisKenari,
-    });
+  GetAllBurung({
+    required this.id,
+    required this.tipe,
+    required this.noRing,
+    required this.jenisKelamin,
+    required this.tanggalLahir,
+    required this.jenisKenari,
+  });
 
-    factory Datum.fromJson(String str) => Datum.fromMap(json.decode(str));
+  GetAllBurung copyWith({
+    int? id,
+    Tipe? tipe,
+    String? noRing,
+    JenisKelamin? jenisKelamin,
+    DateTime? tanggalLahir,
+    JenisKenari? jenisKenari,
+  }) => GetAllBurung(
+    id: id ?? this.id,
+    tipe: tipe ?? this.tipe,
+    noRing: noRing ?? this.noRing,
+    jenisKelamin: jenisKelamin ?? this.jenisKelamin,
+    tanggalLahir: tanggalLahir ?? this.tanggalLahir,
+    jenisKenari: jenisKenari ?? this.jenisKenari,
+  );
 
-    String toJson() => json.encode(toMap());
+  factory GetAllBurung.fromJson(String str) =>
+      GetAllBurung.fromMap(json.decode(str));
 
-    factory Datum.fromMap(Map<String, dynamic> json) => Datum(
-        id: json["id"],
-        tipe: tipeValues.map[json["tipe"]]!,
-        noRing: json["no_ring"],
-        jenisKelamin: jenisKelaminValues.map[json["jenis_kelamin"]]!,
-        tanggalLahir: json["tanggal_lahir"] == null ? null : DateTime.parse(json["tanggal_lahir"]),
-        jenisKenari: jenisKenariValues.map[json["jenis_kenari"]]!,
-    );
+  String toJson() => json.encode(toMap());
 
-    Map<String, dynamic> toMap() => {
-        "id": id,
-        "tipe": tipeValues.reverse[tipe],
-        "no_ring": noRing,
-        "jenis_kelamin": jenisKelaminValues.reverse[jenisKelamin],
-        "tanggal_lahir": "${tanggalLahir!.year.toString().padLeft(4, '0')}-${tanggalLahir!.month.toString().padLeft(2, '0')}-${tanggalLahir!.day.toString().padLeft(2, '0')}",
-        "jenis_kenari": jenisKenariValues.reverse[jenisKenari],
-    };
+  factory GetAllBurung.fromMap(Map<String, dynamic> json) => GetAllBurung(
+    id: json["id"],
+    tipe: tipeValues.map[json["tipe"]]!,
+    noRing: json["no_ring"],
+    jenisKelamin: jenisKelaminValues.map[json["jenis_kelamin"]]!,
+    tanggalLahir: DateTime.parse(json["tanggal_lahir"]),
+    jenisKenari: jenisKenariValues.map[json["jenis_kenari"]]!,
+  );
+
+  Map<String, dynamic> toMap() => {
+    "id": id,
+    "tipe": tipeValues.reverse[tipe],
+    "no_ring": noRing,
+    "jenis_kelamin": jenisKelaminValues.reverse[jenisKelamin],
+    "tanggal_lahir":
+        "${tanggalLahir.year.toString().padLeft(4, '0')}-${tanggalLahir.month.toString().padLeft(2, '0')}-${tanggalLahir.day.toString().padLeft(2, '0')}",
+    "jenis_kenari": jenisKenariValues.reverse[jenisKenari],
+  };
 }
 
-enum JenisKelamin {
-    BETINA,
-    JANTAN
-}
+enum JenisKelamin { BETINA, JANTAN }
 
 final jenisKelaminValues = EnumValues({
-    "betina": JenisKelamin.BETINA,
-    "jantan": JenisKelamin.JANTAN
+  "betina": JenisKelamin.BETINA,
+  "jantan": JenisKelamin.JANTAN,
 });
 
-enum JenisKenari {
-    AF_MEDIUM,
-    LOCAL
-}
+enum JenisKenari { AF_MEDIUM, LOCAL, YS }
 
 final jenisKenariValues = EnumValues({
-    "AF Medium": JenisKenari.AF_MEDIUM,
-    "Local": JenisKenari.LOCAL
+  "AF Medium": JenisKenari.AF_MEDIUM,
+  "Local": JenisKenari.LOCAL,
+  "YS": JenisKenari.YS,
 });
 
-enum Tipe {
-    ANAK,
-    INDUK
-}
+enum Tipe { ANAK, INDUK }
 
-final tipeValues = EnumValues({
-    "anak": Tipe.ANAK,
-    "induk": Tipe.INDUK
-});
+final tipeValues = EnumValues({"anak": Tipe.ANAK, "induk": Tipe.INDUK});
 
 class EnumValues<T> {
-    Map<String, T> map;
-    late Map<T, String> reverseMap;
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
 
-    EnumValues(this.map);
+  EnumValues(this.map);
 
-    Map<T, String> get reverse {
-            reverseMap = map.map((k, v) => MapEntry(v, k));
-            return reverseMap;
-    }
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
 }

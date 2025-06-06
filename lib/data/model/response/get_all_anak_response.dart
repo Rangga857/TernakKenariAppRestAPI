@@ -1,77 +1,147 @@
 import 'dart:convert';
 
-class GetAllAnakResponse {
-    final String? message;
-    final int? statusCode;
-    final List<Datum>? data;
+class GetAllAnakModelResponse {
+  final String message;
+  final int statusCode;
+  final List<GetAnak> data;
 
-    GetAllAnakResponse({
-        this.message,
-        this.statusCode,
-        this.data,
-    });
+  GetAllAnakModelResponse({
+    required this.message,
+    required this.statusCode,
+    required this.data,
+  });
 
-    factory GetAllAnakResponse.fromJson(String str) => GetAllAnakResponse.fromMap(json.decode(str));
+  GetAllAnakModelResponse copyWith({
+    String? message,
+    int? statusCode,
+    List<GetAnak>? data,
+  }) => GetAllAnakModelResponse(
+    message: message ?? this.message,
+    statusCode: statusCode ?? this.statusCode,
+    data: data ?? this.data,
+  );
 
-    String toJson() => json.encode(toMap());
+  factory GetAllAnakModelResponse.fromRawJson(String str) =>
+      GetAllAnakModelResponse.fromJson(json.decode(str));
 
-    factory GetAllAnakResponse.fromMap(Map<String, dynamic> json) => GetAllAnakResponse(
+  String toRawJson() => json.encode(toJson());
+
+  factory GetAllAnakModelResponse.fromJson(Map<String, dynamic> json) =>
+      GetAllAnakModelResponse(
         message: json["message"],
         statusCode: json["status_code"],
-        data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromMap(x))),
-    );
+        data: List<GetAnak>.from(json["data"].map((x) => GetAnak.fromJson(x))),
+      );
 
-    Map<String, dynamic> toMap() => {
-        "message": message,
-        "status_code": statusCode,
-        "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toMap())),
-    };
+  Map<String, dynamic> toJson() => {
+    "message": message,
+    "status_code": statusCode,
+    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+  };
 }
 
-class Datum {
-    final int? id;
-    final String? noRing;
-    final String? gambarBurung;
-    final DateTime? tanggalLahir;
-    final String? jenisKelamin;
-    final String? jenisKenari;
-    final String? ayahNoRing;
-    final String? ibuNoRing;
+class GetAnakById {
+  final String message;
+  final int statusCode;
+  final GetAnak data;
 
-    Datum({
-        this.id,
-        this.noRing,
-        this.gambarBurung,
-        this.tanggalLahir,
-        this.jenisKelamin,
-        this.jenisKenari,
-        this.ayahNoRing,
-        this.ibuNoRing,
-    });
+  GetAnakById({
+    required this.message,
+    required this.statusCode,
+    required this.data,
+  });
 
-    factory Datum.fromJson(String str) => Datum.fromMap(json.decode(str));
+  GetAnakById copyWith({String? message, int? statusCode, GetAnak? data}) =>
+      GetAnakById(
+        message: message ?? this.message,
+        statusCode: statusCode ?? this.statusCode,
+        data: data ?? this.data,
+      );
 
-    String toJson() => json.encode(toMap());
+  factory GetAnakById.fromRawJson(String str) =>
+      GetAnakById.fromJson(json.decode(str));
 
-    factory Datum.fromMap(Map<String, dynamic> json) => Datum(
-        id: json["id"],
-        noRing: json["no_ring"],
-        gambarBurung: json["gambar_burung"],
-        tanggalLahir: json["tanggal_lahir"] == null ? null : DateTime.parse(json["tanggal_lahir"]),
-        jenisKelamin: json["jenis_kelamin"],
-        jenisKenari: json["jenis_kenari"],
-        ayahNoRing: json["ayah_no_ring"],
-        ibuNoRing: json["ibu_no_ring"],
-    );
+  String toRawJson() => json.encode(toJson());
 
-    Map<String, dynamic> toMap() => {
-        "id": id,
-        "no_ring": noRing,
-        "gambar_burung": gambarBurung,
-        "tanggal_lahir": "${tanggalLahir!.year.toString().padLeft(4, '0')}-${tanggalLahir!.month.toString().padLeft(2, '0')}-${tanggalLahir!.day.toString().padLeft(2, '0')}",
-        "jenis_kelamin": jenisKelamin,
-        "jenis_kenari": jenisKenari,
-        "ayah_no_ring": ayahNoRing,
-        "ibu_no_ring": ibuNoRing,
-    };
+  factory GetAnakById.fromJson(Map<String, dynamic> json) => GetAnakById(
+    message: json["message"],
+    statusCode: json["status_code"],
+    data: GetAnak.fromJson(json["data"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "message": message,
+    "status_code": statusCode,
+    "data": data.toJson(),
+  };
+}
+
+class GetAnak {
+  final int id;
+  final String noRing;
+  final String gambarBurung;
+  final DateTime tanggalLahir;
+  final String jenisKelamin;
+  final String jenisKenari;
+  final String ayahNoRing;
+  final String ibuNoRing;
+
+  GetAnak({
+    required this.id,
+    required this.noRing,
+    required this.gambarBurung,
+    required this.tanggalLahir,
+    required this.jenisKelamin,
+    required this.jenisKenari,
+    required this.ayahNoRing,
+    required this.ibuNoRing,
+  });
+
+  GetAnak copyWith({
+    int? id,
+    String? noRing,
+    String? gambarBurung,
+    DateTime? tanggalLahir,
+    String? jenisKelamin,
+    String? jenisKenari,
+    String? ayahNoRing,
+    String? ibuNoRing,
+  }) => GetAnak(
+    id: id ?? this.id,
+    noRing: noRing ?? this.noRing,
+    gambarBurung: gambarBurung ?? this.gambarBurung,
+    tanggalLahir: tanggalLahir ?? this.tanggalLahir,
+    jenisKelamin: jenisKelamin ?? this.jenisKelamin,
+    jenisKenari: jenisKenari ?? this.jenisKenari,
+    ayahNoRing: ayahNoRing ?? this.ayahNoRing,
+    ibuNoRing: ibuNoRing ?? this.ibuNoRing,
+  );
+
+  factory GetAnak.fromRawJson(String str) => GetAnak.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory GetAnak.fromJson(Map<String, dynamic> json) => GetAnak(
+    id: json["id"],
+    noRing: json["no_ring"],
+    gambarBurung:
+        json["gambar_burung"] ?? '', 
+    tanggalLahir: DateTime.parse(json["tanggal_lahir"]),
+    jenisKelamin: json["jenis_kelamin"],
+    jenisKenari: json["jenis_kenari"],
+    ayahNoRing: json["ayah_no_ring"] ?? '', 
+    ibuNoRing: json["ibu_no_ring"] ?? '', 
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "no_ring": noRing,
+    "gambar_burung": gambarBurung,
+    "tanggal_lahir":
+        "${tanggalLahir.year.toString().padLeft(4, '0')}-${tanggalLahir.month.toString().padLeft(2, '0')}-${tanggalLahir.day.toString().padLeft(2, '0')}",
+    "jenis_kelamin": jenisKelamin,
+    "jenis_kenari": jenisKenari,
+    "ayah_no_ring": ayahNoRing,
+    "ibu_no_ring": ibuNoRing,
+  };
 }
