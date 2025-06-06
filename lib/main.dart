@@ -3,11 +3,18 @@ import 'package:canaryfarm/data/repository/get_all_burung_tersedia_repository.da
 import 'package:canaryfarm/data/repository/profile_buyer_repository.dart';
 import 'package:canaryfarm/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:canaryfarm/presentation/auth/bloc/register/register_bloc.dart';
+import 'package:canaryfarm/presentation/auth/login_screen.dart';
+import 'package:canaryfarm/presentation/auth/register_screen.dart';
 import 'package:canaryfarm/presentation/bloc/get_all_burung_tersedia/get_burung_tersedia_bloc.dart';
+import 'package:canaryfarm/presentation/buyer/home/buyer_home_screen.dart';
 import 'package:canaryfarm/presentation/buyer/profile/bloc/profile_buyer_bloc.dart';
 import 'package:canaryfarm/service/service_http_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -42,7 +49,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
-        // home: const Splashscreen(),
+        home: const LoginScreen(),
       ),
     );
   }
