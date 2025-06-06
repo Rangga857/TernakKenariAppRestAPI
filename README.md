@@ -46,8 +46,10 @@ Aplikasi ini dirancang dengan tampilan yang mudah digunakan dan responsif.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/946cf30a-7506-4cd7-be2e-7789a1fc9c2f" alt="Home Buyer Screen" width="250" /><br/>
-  <em>Home Buyer Screen: Dashboard utama menampilkan data pembeli secara ringkas dan mudah diakses.</em>
+  <em>Profile Buyer Screen: Profile Buyer menampilkan data pembeli secara ringkas dan mudah diakses.</em>
 </p>
 
----
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/fe82c085-ae9d-46bd-8a6a-d16b2382d8a1" alt="Home Buyer Screen" width="250" /><br/>
+  <em>Home Buyer Screen: Tampilan dashboard utama.</em>
+</p>
