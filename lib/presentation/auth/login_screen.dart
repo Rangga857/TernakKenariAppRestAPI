@@ -97,6 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         SnackBar(content: Text(state.error)),
                       );
                     } else if (state is LoginSuccess) {
+                      print('User role from response: ${state.responseModel.user?.role}');
                       final role = state.responseModel.user?.role?.toLowerCase();
                       if (role == 'admin') {
                         // context.pushAndRemoveUntil(
@@ -112,6 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           (route) => false,
                         );
                       } else {
+                         print("Role tidak dikenal: ${state.responseModel.user?.role}");
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("Role tidak dikenal")),
                         );
