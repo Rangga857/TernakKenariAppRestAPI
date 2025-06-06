@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:canaryfarm/data/model/request/auth/login_request_model.dart';
 import 'package:canaryfarm/data/model/request/auth/request_model.dart';
-import 'package:canaryfarm/data/model/response/login_response_model.dart';
+import 'package:canaryfarm/data/model/response/auth_response_model.dart';
 import 'package:canaryfarm/service/service_http_client.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:dartz/dartz.dart';
@@ -13,7 +13,7 @@ class AuthRepository {
 
   AuthRepository(this._servicehttpClient);
   
-  Future<Either<String, LoginResponseModel>>login(
+  Future<Either<String, AuthResponseModel>>login(
     LoginRequestModel requestModel,
   ) async{
       try{
@@ -23,14 +23,14 @@ class AuthRepository {
       );
       final jsonResponse = json.decode(response.body);
       if (response.statusCode == 200){
-        final loginResponse = LoginResponseModel.fromMap(jsonResponse);
+        final loginResponse = AuthResponseModel.fromMap(jsonResponse);
         await secureStorage.write(
           key: "authToken", 
-          value: loginResponse.data!.token,
+          value: loginResponse.user!.token,
         );
         await secureStorage.write(
           key: "userRole", 
-          value: loginResponse.data!.role,
+          value: loginResponse.user!.role,
         );
         return Right(loginResponse);
       }else{
