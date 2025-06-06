@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:canaryfarm/core/components/spaces.dart';
 import 'package:canaryfarm/core/core.dart';
 import 'package:canaryfarm/data/model/request/auth/request_model.dart';
@@ -142,7 +144,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   username: namaController.text,
                                   email: emailController.text,
                                   password: passwordController.text,
+                                  passwordConfirmation: passwordController.text, 
+                                  roleId: 2,
                                 );
+                                print("Data terkirim: ${jsonEncode(request.toMap())}");
                                 context.read<RegisterBloc>().add(
                                       RegisterRequested(requestModel: request),
                                     );
